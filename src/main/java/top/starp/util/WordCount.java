@@ -23,9 +23,13 @@ public class WordCount {
 
         public void map(Object key, Text value, Context context
         ) throws IOException, InterruptedException {
+            System.out.println("value");
+            System.out.println(value);
             StringTokenizer itr = new StringTokenizer(value.toString());
             while (itr.hasMoreTokens()) {
                 word.set(itr.nextToken());
+                System.out.println("word");
+                System.out.println(word);
                 context.write(word, one);
             }
         }
@@ -39,10 +43,18 @@ public class WordCount {
                            Context context
         ) throws IOException, InterruptedException {
             int sum = 0;
+            System.out.println("=======");
+            System.out.println("values");
+            System.out.println(values);
             for (IntWritable val : values) {
                 sum += val.get();
             }
+//            这个字符有几个
+            System.out.println("sum");
+            System.out.println(sum);
             result.set(sum);
+            System.out.println("key");
+            System.out.println(key);
             context.write(key, result);
         }
     }
